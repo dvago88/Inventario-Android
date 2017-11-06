@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Inventario-Android</string>
+    <string name="error_titile">Uuups! Lo siento!</string>
+    <string name="error_message">Hubo un error intenta de nuevo</string>
+    <string name="error_ok_button_text">OK</string>
+    <string name="network_unavilable_message">No hay red en el momento</string>
+</resources>
