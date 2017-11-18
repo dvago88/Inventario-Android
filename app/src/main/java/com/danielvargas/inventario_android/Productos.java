@@ -10,6 +10,7 @@ public class Productos {
     double precio;
     double precioEntrada;
     String descripcion;
+    int vendidos;
 
     public int getId() {
         return id;
@@ -49,5 +50,13 @@ public class Productos {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public int getVendidos() {
+        return vendidos;
+    }
+
+    public void setVendidos(int vendidos) {
+        this.vendidos = vendidos;
     }
 }
