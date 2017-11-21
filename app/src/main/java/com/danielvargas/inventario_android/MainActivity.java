@@ -1,21 +1,29 @@
 package com.danielvargas.inventario_android;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.danielvargas.inventario_android.adapters.ProductosAdapter;
+import com.danielvargas.inventario_android.model.Productos;
+import com.danielvargas.inventario_android.service.AlertDialogFragment;
+import com.danielvargas.inventario_android.service.ProductosActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,43 +34,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+//TODO: Agregar mensaje que no hay data si no se puede conectar
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String LISTA_PRODUCTOS = "LISTA_PRODUCTOS";
     private Productos[] mProductos;
-
-    @BindView(R.id.id1)
-    TextView id1;
-    @BindView(R.id.id2)
-    TextView id2;
-    @BindView(R.id.id3)
-    TextView id3;
-    @BindView(R.id.id4)
-    TextView id4;
-    @BindView(R.id.nombre1)
-    TextView nombre1;
-    @BindView(R.id.nombre2)
-    TextView nombre2;
-    @BindView(R.id.nombre3)
-    TextView nombre3;
-    @BindView(R.id.nombre4)
-    TextView nombre4;
-    @BindView(R.id.precio1)
-    TextView precio1;
-    @BindView(R.id.precio2)
-    TextView precio2;
-    @BindView(R.id.precio3)
-    TextView precio3;
-    @BindView(R.id.precio4)
-    TextView precio4;
-    @BindView(R.id.vendidos1)
-    TextView vendidos1;
-    @BindView(R.id.vendidos2)
-    TextView vendidos2;
-    @BindView(R.id.vendidos3)
-    TextView vendidos3;
-    @BindView(R.id.vendidos4)
-    TextView vendidos4;
 
 
     @Override
@@ -72,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         getData();
+
+
     }
 
     private void getData() {
@@ -163,29 +142,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateDisplay() {
-        id1.setText(mProductos[0].getId() + "");
-        id2.setText(mProductos[1].getId() + "");
-        id3.setText(mProductos[2].getId() + "");
-        id4.setText(mProductos[3].getId() + "");
-
-        nombre1.setText(mProductos[0].getNombre());
-        nombre2.setText(mProductos[1].getNombre());
-        nombre3.setText(mProductos[2].getNombre());
-        nombre4.setText(mProductos[3].getNombre());
-
-        precio1.setText(mProductos[0].getPrecio() + "");
-        precio2.setText(mProductos[1].getPrecio() + "");
-        precio3.setText(mProductos[2].getPrecio() + "");
-        precio4.setText(mProductos[3].getPrecio() + "");
-
-        vendidos1.setText(mProductos[0].getVendidos() + "");
-        vendidos2.setText(mProductos[1].getVendidos() + "");
-        vendidos3.setText(mProductos[2].getVendidos() + "");
-        vendidos4.setText(mProductos[3].getVendidos() + "");
     }
 
-    @OnClick(R.id.actualizarButton)
-    public void actualizar(View view){
-        getData();
+    @OnClick(R.id.startButton)
+    public void lista(View view) {
+        Intent intent = new Intent(this, ProductosActivity.class);
+        intent.putExtra(LISTA_PRODUCTOS, mProductos);
+        startActivity(intent);
     }
 }
